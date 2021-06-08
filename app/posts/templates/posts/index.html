@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    blueprint index page    
+{% endblock title %}
+
+{% block content_title %}
+    Posts
+{% endblock content_title %}
+
+ {% block content %}
+     
+    {% for post in pages.items %}
+        <p>
+            <a href="{{ url_for('posts.post_detail', slug=post.slug) }}">
+                {{ post.title }}
+            </a>
+        </p>
+    {% endfor %}
+
+    <nav aria-label="page navigation">
+        <ul class="pagination">
+            <li 
+                {% if not pages.has_prev %}
+                    class="page-item disabled"
+                {% else %}
+                    class="page-item"
+                {% endif %}
+            >
+                <a class="page-link" href="./?{% if query %}q={{ query }}&{% endif %}page={{ pages.prev_num }}">Previous</a>
+            </li>
+            {% for page in pages.iter_pages() %}
+                <li 
+                    {% if page == pages.page %}
+                        class="page-item active"
+                    {% else %}
+                        class="page-item"
+                    {% endif %}
+                >
+                    <a class="page-link" href="./?{% if query %}q={{ query }}&{% endif %}page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li 
+                {% if not pages.has_next %}
+                    class="page-item disabled"
+                {% else %}
+                    class="page-item"
+                {% endif %}
+            >  
+                
+                <a class="page-link" href="./?{% if query %}q={{ query }}&{% endif %}page={{ pages.next_num }}">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+ {% endblock content %}

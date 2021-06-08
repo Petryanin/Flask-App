@@ -1,0 +1,4 @@
+.prettier*
+__pycache__
+demo
+.DS_Store

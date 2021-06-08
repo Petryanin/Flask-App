@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit post
+{% endblock title %}
+
+{% block content_title %}
+    Edit post
+{% endblock content_title %}
+
+{% block content %}
+    <form class="col-md-6" action="{{ url_for('posts.edit_post', slug=post.slug) }}" method="POST">
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label(class='form-label') }}
+                {{ field(class='form-control') }}
+            </div>
+        {% endfor %}
+
+        <button class="mt-3 btn btn-success" type="submit">Save</button>
+
+    </form>
+{% endblock content %}
